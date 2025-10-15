@@ -128,5 +128,3 @@ http://localhost:8080/swagger-ui.html
 ```
 
 ---
-
-⭐ Se este projeto te ajudou, considere dar uma estrela!
