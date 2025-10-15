@@ -20,9 +20,6 @@ My Training é uma solução moderna para gerenciamento de treinos pessoais, per
 - **Relatórios**: Visualize sua evolução semanal e mensal
 - **Autenticação Segura**: Sistema robusto com JWT e controle de acesso
 
-- <img width="642" height="533" alt="image" src="https://github.com/user-attachments/assets/d2e38274-6421-43c2-b74b-7ce3cf1d4d83" />
-
-
 ## 📦 Escopo do Projeto
 
 ### Escopo Mínimo
@@ -37,6 +34,10 @@ My Training é uma solução moderna para gerenciamento de treinos pessoais, per
 
 - [ ] Filtro e pesquisa de treinos por data e tipo
 - [ ] Estatísticas avançadas (melhor tempo, distância total, ranking pessoal)
+
+## Diagrama de Classe
+<img width="773" height="595" alt="image" src="https://github.com/user-attachments/assets/a73abc95-672c-4a99-9be8-8b73d29b705a" />
+
 
 ## 📐 Arquitetura
 
