@@ -1,5 +1,4 @@
-Aqui está o README ajustado com as informações que você já tinha mais o conteúdo que precisa adicionar:
-markdown# My Training 🏋️‍♂️
+# My Training 🏋️‍♂️
 
 **Aplicativo completo para planejamento e acompanhamento de treinos, promovendo regularidade, organização e motivação na prática de atividades físicas.**
 
