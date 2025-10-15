@@ -35,26 +35,6 @@ My Training é uma solução moderna para gerenciamento de treinos pessoais, per
 - [ ] Filtro e pesquisa de treinos por data e tipo
 - [ ] Estatísticas avançadas (melhor tempo, distância total, ranking pessoal)
 
-## 🚀 Tecnologias
-
-### Backend
-
-- **Java 21+**
-- **Spring Boot 3.x**
-- **Spring Security** com JWT
-- **Spring Data JPA**
-- **Flyway** para migração de banco de dados
-- **Swagger** para documentação da API
-- **PostgreSQL/MySQL** (banco de dados relacional)
-- **Maven** para gerenciamento de dependências
-
-### Frontend
-
-- **React Native**
-- **React Navigation**
-- **Axios** para comunicação com API
-- **Hooks personalizados**
-
 ## 📐 Arquitetura
 
 O projeto segue uma arquitetura em camadas com separação clara de responsabilidades:
