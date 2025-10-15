@@ -22,7 +22,7 @@ My Training é uma solução moderna para gerenciamento de treinos pessoais, per
 
 ## 📦 Escopo do Projeto
 
-### Escopo Mínimo (Implementado)
+### Escopo Mínimo
 
 - ✅ Cadastro e autenticação de usuários
 - ✅ CRUD completo para treinos (corrida, musculação e ciclismo)
@@ -30,7 +30,7 @@ My Training é uma solução moderna para gerenciamento de treinos pessoais, per
 - ✅ Registro de exercícios individuais associados a treinos
 - ✅ Geração de relatórios simples (evolução semanal e mensal)
 
-### Escopo Opcional (Roadmap)
+### Escopo Opcional
 
 - [ ] Filtro e pesquisa de treinos por data e tipo
 - [ ] Estatísticas avançadas (melhor tempo, distância total, ranking pessoal)
@@ -59,13 +59,18 @@ My Training é uma solução moderna para gerenciamento de treinos pessoais, per
 
 O projeto segue uma arquitetura em camadas com separação clara de responsabilidades:
 ```
-Backend (API REST)
-├── Controller     → Endpoints REST
-├── Service        → Lógica de negócio
-├── Repository     → Acesso aos dados
-├── Model          → Entidades do domínio
-├── DTO            → Objetos de transferência
-└── Configuration  → Segurança e JWT
+
+├─ controller/          # Controladores REST
+│  ├─ dto/              # DTOs de entrada e saída
+│  ├─ model/            # Entidades JPA
+│  ├─ repository/       # Repositórios
+│  ├─ service/          # Lógica de negócio
+│  ├─ configuration/    # Configurações de segurança
+│  └─ util/             # Utilitários
+├─ src/main/resources/
+│  ├─ application.yml   # Configurações
+│  └─ db/migration/     # Scripts Flyway
+
 ```
 
 ### Principais Entidades
