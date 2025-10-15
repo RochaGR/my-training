@@ -1,9 +1,6 @@
-# My Training 🏋️‍♂️
+#                                                                      My Training 🏋️‍♂️
 
-[![Java](https://img.shields.io/badge/Java-17+-orange.svg)](https://www.oracle.com/java/)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![React Native](https://img.shields.io/badge/React%20Native-latest-blue.svg)](https://reactnative.dev/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 
 > Aplicativo completo para planejamento e acompanhamento de treinos, promovendo regularidade, organização e motivação na prática de atividades físicas.
 
