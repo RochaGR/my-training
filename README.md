@@ -1,12 +1,17 @@
-#                                                                      My Training 🏋️‍♂️
+Aqui está o README ajustado com as informações que você já tinha mais o conteúdo que precisa adicionar:
+markdown# My Training 🏋️‍♂️
 
-
-
-> Aplicativo completo para planejamento e acompanhamento de treinos, promovendo regularidade, organização e motivação na prática de atividades físicas.
+**Aplicativo completo para planejamento e acompanhamento de treinos, promovendo regularidade, organização e motivação na prática de atividades físicas.**
 
 ## 📋 Sobre o Projeto
 
 My Training é uma solução moderna para gerenciamento de treinos pessoais, permitindo que usuários acompanhem suas atividades físicas, estabeleçam desafios e monitorem sua evolução ao longo do tempo. O sistema suporta diversos tipos de treino, como corrida, musculação e ciclismo.
+
+### 🎯 Visão Geral
+
+- **Propósito**: Facilitar o planejamento e o acompanhamento de treinos, promovendo a regularidade, organização e motivação na prática de atividades físicas, seja na academia, em casa ou ao ar livre.
+- **Público-alvo**: Usuários individuais que desejam acompanhar exercícios e metas pessoais.
+- **Requisitos principais**: Registro e acompanhamento de treinos e desafios pessoais.
 
 ### ✨ Funcionalidades Principais
 
@@ -16,19 +21,36 @@ My Training é uma solução moderna para gerenciamento de treinos pessoais, per
 - **Relatórios**: Visualize sua evolução semanal e mensal
 - **Autenticação Segura**: Sistema robusto com JWT e controle de acesso
 
+## 📦 Escopo do Projeto
+
+### Escopo Mínimo (Implementado)
+
+- ✅ Cadastro e autenticação de usuários
+- ✅ CRUD completo para treinos (corrida, musculação e ciclismo)
+- ✅ CRUD para desafios pessoais
+- ✅ Registro de exercícios individuais associados a treinos
+- ✅ Geração de relatórios simples (evolução semanal e mensal)
+
+### Escopo Opcional (Roadmap)
+
+- [ ] Filtro e pesquisa de treinos por data e tipo
+- [ ] Estatísticas avançadas (melhor tempo, distância total, ranking pessoal)
+
 ## 🚀 Tecnologias
 
 ### Backend
+
 - **Java 21+**
 - **Spring Boot 3.x**
 - **Spring Security** com JWT
 - **Spring Data JPA**
 - **Flyway** para migração de banco de dados
-- **Swagger Documentação**
+- **Swagger** para documentação da API
 - **PostgreSQL/MySQL** (banco de dados relacional)
 - **Maven** para gerenciamento de dependências
 
 ### Frontend
+
 - **React Native**
 - **React Navigation**
 - **Axios** para comunicação com API
@@ -54,12 +76,11 @@ Backend (API REST)
 - **Exercicio**: Detalhes de exercícios individuais (séries, repetições, carga)
 - **Desafio**: Metas e objetivos pessoais
 
-
 ## 📁 Estrutura do Projeto
 
 ### Backend
 ```
-rastreadores-exercicios-backend/
+
 ├─ src/main/java/com/senai/projeto/mytraining/
 │  ├─ controller/       # Controladores REST
 │  ├─ dto/              # DTOs de entrada e saída
@@ -76,7 +97,7 @@ rastreadores-exercicios-backend/
 
 ### Frontend
 ```
-rastreador-exercicios-app/
+
 ├─ src/
 │  ├─ api/              # Serviços de API
 │  ├─ components/       # Componentes reutilizáveis
@@ -95,13 +116,12 @@ O sistema utiliza JWT (JSON Web Tokens) para autenticação. Para acessar endpoi
 2. Utilize o token retornado no header `Authorization: Bearer {token}`
 3. O sistema suporta diferentes níveis de acesso através de roles
 
-## 📊 Funcionalidades 
+## 📚 Documentação da API
 
-- [ ] Filtros avançados de treinos por data e tipo
-- [ ] Estatísticas detalhadas (melhor tempo, distância total)
-- [ ] Ranking pessoal de desempenho
-
-
+Após iniciar o backend, acesse a documentação Swagger em:
+```
+http://localhost:8080/swagger-ui.html
+```
 
 ---
 
