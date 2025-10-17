@@ -28,12 +28,13 @@ My Training é uma solução moderna para gerenciamento de treinos pessoais, per
 - ✅ CRUD completo para treinos (corrida, musculação e ciclismo)
 - ✅ CRUD para desafios pessoais
 - ✅ Registro de exercícios individuais associados a treinos
-- ✅ Geração de relatórios simples (evolução semanal e mensal)
+
 
 ### Escopo Opcional
 
 - [ ] Filtro e pesquisa de treinos por data e tipo
 - [ ] Estatísticas avançadas (melhor tempo, distância total, ranking pessoal)
+- [ ] Geração de relatórios simples (evolução semanal e mensal)
 
 ## Diagrama de Classe
 <img width="773" height="595" alt="image" src="https://github.com/user-attachments/assets/a73abc95-672c-4a99-9be8-8b73d29b705a" />
