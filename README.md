@@ -39,6 +39,9 @@ My Training é uma solução moderna para gerenciamento de treinos pessoais, per
 ## Diagrama de Classe
 <img width="773" height="595" alt="image" src="https://github.com/user-attachments/assets/a73abc95-672c-4a99-9be8-8b73d29b705a" />
 
+## Diagrama ER
+<img width="986" height="545" alt="image" src="https://github.com/user-attachments/assets/f1ada34f-eeeb-4e05-80e2-98130c643f54" />
+
 
 ## 📐 Arquitetura
 
