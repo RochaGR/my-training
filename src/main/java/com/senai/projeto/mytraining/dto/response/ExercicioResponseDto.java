@@ -1,17 +1,12 @@
 package com.senai.projeto.mytraining.dto.response;
 
-import java.time.LocalTime;
-
-public record ExercicioResponseDto(
-
+public record ExercicioResponseDTO(
         Long id,
-
         String nome,
-
-        String descricao,
-
-        Double peso,
-
-        LocalTime tempo
-){
+        Integer series,
+        Integer repeticoes,
+        Double cargaKg,
+        String observacoes,
+        Long treinoId
+) {
 }

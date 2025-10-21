@@ -1,6 +1,5 @@
 package com.senai.projeto.mytraining.model;
 
-import com.senai.projeto.mytraining.model.Exercicio;
 import jakarta.persistence.*;
 import lombok.*;
 
