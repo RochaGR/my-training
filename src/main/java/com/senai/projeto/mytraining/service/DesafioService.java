@@ -64,8 +64,21 @@ public class DesafioService {
 
         Desafio desafio = desafioOptional.get();
         desafioMapper.updateEntityFromDTO(dto, desafio);
+        
+        // Verificar se o desafio foi concluído automaticamente
+        verificarConclusaoAutomatica(desafio);
+        
         Desafio desafioAtualizado = desafioRepository.save(desafio);
         return Optional.of(desafioMapper.toResponseDTO(desafioAtualizado));
+    }
+
+    private void verificarConclusaoAutomatica(Desafio desafio) {
+        if (desafio.getProgressoAtual() != null && 
+            desafio.getObjetivoValor() != null && 
+            desafio.getProgressoAtual() >= desafio.getObjetivoValor() &&
+            desafio.getStatus() != Desafio.Status.CONCLUIDO) {
+            desafio.setStatus(Desafio.Status.CONCLUIDO);
+        }
     }
 
     public boolean deletar(Long id) {
