@@ -19,6 +19,7 @@ public class DesafioMapper {
         desafio.setDataInicio(dto.dataInicio());
         desafio.setDataFim(dto.dataFim());
         desafio.setObjetivoValor(dto.objetivoValor());
+        desafio.setProgressoAtual(dto.progressoAtual() != null ? dto.progressoAtual() : 0.0);
         desafio.setUnidade(dto.unidade());
         desafio.setStatus(dto.status());
 
@@ -37,6 +38,7 @@ public class DesafioMapper {
                 desafio.getDataInicio(),
                 desafio.getDataFim(),
                 desafio.getObjetivoValor(),
+                desafio.getProgressoAtual(),
                 desafio.getUnidade(),
                 desafio.getStatus()
         );
@@ -52,6 +54,7 @@ public class DesafioMapper {
         desafio.setDataInicio(dto.dataInicio());
         desafio.setDataFim(dto.dataFim());
         desafio.setObjetivoValor(dto.objetivoValor());
+        desafio.setProgressoAtual(dto.progressoAtual() != null ? dto.progressoAtual() : desafio.getProgressoAtual());
         desafio.setUnidade(dto.unidade());
         desafio.setStatus(dto.status());
     }

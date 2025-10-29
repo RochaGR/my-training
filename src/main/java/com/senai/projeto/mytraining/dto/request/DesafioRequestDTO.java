@@ -22,6 +22,9 @@ public record DesafioRequestDTO(
         @Positive(message = "Objetivo deve ser um valor positivo")
         Double objetivoValor,
 
+        @PositiveOrZero(message = "Progresso atual deve ser um valor positivo ou zero")
+        Double progressoAtual,
+
         @NotNull(message = "Unidade é obrigatória")
         Desafio.Unidade unidade,
 

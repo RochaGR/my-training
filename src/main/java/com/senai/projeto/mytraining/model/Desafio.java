@@ -31,6 +31,9 @@ public class Desafio {
     @Column(name = "objetivo_valor")
     private Double objetivoValor;
 
+    @Column(name = "progresso_atual")
+    private Double progressoAtual = 0.0;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Unidade unidade;
@@ -44,6 +47,6 @@ public class Desafio {
     }
 
     public enum Status {
-        ATIVO, CONCLUIDO, CANCELADO, PENDENTE
+        CONCLUIDO, CANCELADO, PENDENTE
     }
 }

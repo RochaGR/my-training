@@ -11,6 +11,7 @@ public record DesafioResponseDTO(
         LocalDate dataInicio,
         LocalDate dataFim,
         Double objetivoValor,
+        Double progressoAtual,
         Desafio.Unidade unidade,
         Desafio.Status status
 ) {
