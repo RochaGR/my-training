@@ -60,22 +60,4 @@ public class UsuarioController {
         }
         return ResponseEntity.notFound().build();
     }
-
-    @PostMapping("/{usuarioId}/desafios/{desafioId}")
-    public ResponseEntity<UsuarioResponseDTO> adicionarDesafio(
-            @PathVariable Long usuarioId,
-            @PathVariable Long desafioId) {
-        return usuarioService.adicionarDesafio(usuarioId, desafioId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/{usuarioId}/desafios/{desafioId}")
-    public ResponseEntity<UsuarioResponseDTO> removerDesafio(
-            @PathVariable Long usuarioId,
-            @PathVariable Long desafioId) {
-        return usuarioService.removerDesafio(usuarioId, desafioId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
 }

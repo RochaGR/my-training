@@ -1,7 +1,7 @@
 package com.senai.projeto.mytraining.service;
 
 import com.senai.projeto.mytraining.dto.request.ExercicioRequestDTO;
-import com.senai.projeto.mytraining.dto.response.ExercicioResponseDTO;
+import com.senai.projeto.mytraining.dto.response.ExercicioResponseDto;
 import com.senai.projeto.mytraining.mapper.ExercicioMapper;
 import com.senai.projeto.mytraining.model.Exercicio;
 import com.senai.projeto.mytraining.model.Treino;
@@ -24,7 +24,7 @@ public class ExercicioService {
     private final TreinoRepository treinoRepository;
     private final ExercicioMapper exercicioMapper;
 
-    public Optional<ExercicioResponseDTO> criar(ExercicioRequestDTO dto) {
+        public Optional<ExercicioResponseDto> criar(ExercicioRequestDTO dto) {
         Optional<Treino> treinoOptional = treinoRepository.findById(dto.treinoId());
 
         if (treinoOptional.isEmpty()) {
@@ -37,32 +37,32 @@ public class ExercicioService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<ExercicioResponseDTO> buscarPorId(Long id) {
+    public Optional<ExercicioResponseDto> buscarPorId(Long id) {
         return exercicioRepository.findById(id)
                 .map(exercicioMapper::toResponseDTO);
     }
 
     @Transactional(readOnly = true)
-    public List<ExercicioResponseDTO> listarTodos() {
+    public List<ExercicioResponseDto> listarTodos() {
         return exercicioRepository.findAll().stream()
                 .map(exercicioMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public Optional<List<ExercicioResponseDTO>> listarPorTreino(Long treinoId) {
+    public Optional<List<ExercicioResponseDto>> listarPorTreino(Long treinoId) {
         if (!treinoRepository.existsById(treinoId)) {
             return Optional.empty();
         }
 
-        List<ExercicioResponseDTO> exercicios = exercicioRepository.findByTreinoId(treinoId).stream()
+        List<ExercicioResponseDto> exercicios = exercicioRepository.findByTreinoId(treinoId).stream()
                 .map(exercicioMapper::toResponseDTO)
                 .collect(Collectors.toList());
 
         return Optional.of(exercicios);
     }
 
-    public Optional<ExercicioResponseDTO> atualizar(Long id, ExercicioRequestDTO dto) {
+    public Optional<ExercicioResponseDto> atualizar(Long id, ExercicioRequestDTO dto) {
         Optional<Exercicio> exercicioOptional = exercicioRepository.findById(id);
 
         if (exercicioOptional.isEmpty()) {

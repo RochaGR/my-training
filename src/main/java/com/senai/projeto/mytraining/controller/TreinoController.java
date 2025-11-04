@@ -12,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -25,10 +26,21 @@ public class TreinoController {
     private final TreinoService treinoService;
 
     @PostMapping
-    public ResponseEntity<TreinoResponseDTO> criar(@Valid @RequestBody TreinoRequestDTO dto) {
-        return treinoService.criar(dto)
+    public ResponseEntity<TreinoResponseDTO> criar(
+            @Valid @RequestBody TreinoRequestDTO dto,
+            Authentication authentication) {
+        String email = authentication.getName();
+        return treinoService.criar(dto, email)
                 .map(treino -> ResponseEntity.status(HttpStatus.CREATED).body(treino))
                 .orElse(ResponseEntity.badRequest().build());
+    }
+
+    @GetMapping("/meus-treinos")
+    public ResponseEntity<List<TreinoResponseDTO>> listarMeusTreinos(Authentication authentication) {
+        String email = authentication.getName();
+        return treinoService.listarPorEmail(email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}")

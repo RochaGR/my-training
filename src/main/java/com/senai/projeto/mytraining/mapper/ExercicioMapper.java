@@ -1,7 +1,7 @@
 package com.senai.projeto.mytraining.mapper;
 
 import com.senai.projeto.mytraining.dto.request.ExercicioRequestDTO;
-import com.senai.projeto.mytraining.dto.response.ExercicioResponseDTO;
+import com.senai.projeto.mytraining.dto.response.ExercicioResponseDto;
 import com.senai.projeto.mytraining.model.Exercicio;
 import com.senai.projeto.mytraining.model.Treino;
 import org.springframework.stereotype.Component;
@@ -25,12 +25,12 @@ public class ExercicioMapper {
         return exercicio;
     }
 
-    public ExercicioResponseDTO toResponseDTO(Exercicio exercicio) {
+    public ExercicioResponseDto toResponseDTO(Exercicio exercicio) {
         if (exercicio == null) {
             return null;
         }
 
-        return new ExercicioResponseDTO(
+        return new ExercicioResponseDto(
                 exercicio.getId(),
                 exercicio.getNome(),
                 exercicio.getSeries(),

@@ -1,6 +1,6 @@
 package com.senai.projeto.mytraining.dto.response;
 
-public record ExercicioResponseDTO (
+public record ExercicioResponseDto (
         Long id,
         String nome,
         Integer series,

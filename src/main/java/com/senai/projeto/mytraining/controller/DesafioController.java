@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +25,21 @@ public class DesafioController {
     private final DesafioService desafioService;
 
     @PostMapping
-    public ResponseEntity<DesafioResponseDTO> criar(@Valid @RequestBody DesafioRequestDTO dto) {
-        DesafioResponseDTO desafio = desafioService.criar(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(desafio);
+    public ResponseEntity<DesafioResponseDTO> criar(
+            @Valid @RequestBody DesafioRequestDTO dto,
+            Authentication authentication) {
+        String email = authentication.getName();
+        return desafioService.criar(dto, email)
+                .map(desafio -> ResponseEntity.status(HttpStatus.CREATED).body(desafio))
+                .orElse(ResponseEntity.badRequest().build());
+    }
+
+    @GetMapping("/meus-desafios")
+    public ResponseEntity<List<DesafioResponseDTO>> listarMeusDesafios(Authentication authentication) {
+        String email = authentication.getName();
+        return desafioService.listarPorEmail(email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}")

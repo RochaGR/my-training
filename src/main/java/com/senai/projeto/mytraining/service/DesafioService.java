@@ -4,7 +4,9 @@ import com.senai.projeto.mytraining.dto.request.DesafioRequestDTO;
 import com.senai.projeto.mytraining.dto.response.DesafioResponseDTO;
 import com.senai.projeto.mytraining.mapper.DesafioMapper;
 import com.senai.projeto.mytraining.model.Desafio;
+import com.senai.projeto.mytraining.model.Usuario;
 import com.senai.projeto.mytraining.repository.DesafioRepository;
+import com.senai.projeto.mytraining.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,12 +23,25 @@ import java.util.stream.Collectors;
 public class DesafioService {
 
     private final DesafioRepository desafioRepository;
+    private final UsuarioRepository usuarioRepository;
     private final DesafioMapper desafioMapper;
 
     public DesafioResponseDTO criar(DesafioRequestDTO dto) {
         Desafio desafio = desafioMapper.toEntity(dto);
         Desafio desafioSalvo = desafioRepository.save(desafio);
         return desafioMapper.toResponseDTO(desafioSalvo);
+    }
+
+    public Optional<DesafioResponseDTO> criar(DesafioRequestDTO dto, String email) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
+
+        if (usuarioOptional.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Desafio desafio = desafioMapper.toEntity(dto, usuarioOptional.get());
+        Desafio desafioSalvo = desafioRepository.save(desafio);
+        return Optional.of(desafioMapper.toResponseDTO(desafioSalvo));
     }
 
     @Transactional(readOnly = true)
@@ -40,6 +55,21 @@ public class DesafioService {
         return desafioRepository.findAll().stream()
                 .map(desafioMapper::toResponseDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<List<DesafioResponseDTO>> listarPorEmail(String email) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
+        
+        if (usuarioOptional.isEmpty()) {
+            return Optional.empty();
+        }
+
+        List<DesafioResponseDTO> desafios = desafioRepository.findByUsuarioId(usuarioOptional.get().getId()).stream()
+                .map(desafioMapper::toResponseDTO)
+                .collect(Collectors.toList());
+
+        return Optional.of(desafios);
     }
 
     @Transactional(readOnly = true)

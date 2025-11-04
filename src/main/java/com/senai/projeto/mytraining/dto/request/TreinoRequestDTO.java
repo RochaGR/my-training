@@ -23,8 +23,7 @@ public record TreinoRequestDTO(
         @PositiveOrZero(message = "Distância deve ser um valor positivo ou zero")
         Double distanciaKm,
 
-        @NotNull(message = "ID do usuário é obrigatório")
-        Long usuarioId,
+        Long usuarioId, // Opcional quando usando autenticação JWT
 
         @Valid
         Set<ExercicioRequestDTO> exercicios

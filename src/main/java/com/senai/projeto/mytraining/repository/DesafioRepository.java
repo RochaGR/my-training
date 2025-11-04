@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface DesafioRepository extends JpaRepository<Desafio, Long> {
     List<Desafio> findByStatus(Desafio.Status status);
+    List<Desafio> findByUsuarioId(Long usuarioId);
 }

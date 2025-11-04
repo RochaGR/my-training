@@ -38,6 +38,29 @@ public class TreinoService {
         return Optional.of(treinoMapper.toResponseDTO(treinoSalvo));
     }
 
+    public Optional<TreinoResponseDTO> criar(TreinoRequestDTO dto, String email) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
+
+        if (usuarioOptional.isEmpty()) {
+            return Optional.empty();
+        }
+
+        // Criar um DTO sem usuarioId para evitar conflitos
+        TreinoRequestDTO dtoComUsuario = new TreinoRequestDTO(
+                dto.dataHora(),
+                dto.tipo(),
+                dto.duracaoMin(),
+                dto.observacoes(),
+                dto.distanciaKm(),
+                usuarioOptional.get().getId(),
+                dto.exercicios()
+        );
+
+        Treino treino = treinoMapper.toEntity(dtoComUsuario, usuarioOptional.get());
+        Treino treinoSalvo = treinoRepository.save(treino);
+        return Optional.of(treinoMapper.toResponseDTO(treinoSalvo));
+    }
+
     @Transactional(readOnly = true)
     public Optional<TreinoResponseDTO> buscarPorId(Long id) {
         return treinoRepository.findById(id)
@@ -64,6 +87,21 @@ public class TreinoService {
         }
 
         List<TreinoResponseDTO> treinos = treinoRepository.findByUsuarioId(usuarioId).stream()
+                .map(treinoMapper::toResponseDTO)
+                .collect(Collectors.toList());
+
+        return Optional.of(treinos);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<List<TreinoResponseDTO>> listarPorEmail(String email) {
+        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
+        
+        if (usuarioOptional.isEmpty()) {
+            return Optional.empty();
+        }
+
+        List<TreinoResponseDTO> treinos = treinoRepository.findByUsuarioId(usuarioOptional.get().getId()).stream()
                 .map(treinoMapper::toResponseDTO)
                 .collect(Collectors.toList());
 

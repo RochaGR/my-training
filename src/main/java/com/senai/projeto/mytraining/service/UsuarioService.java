@@ -3,13 +3,12 @@ package com.senai.projeto.mytraining.service;
 import com.senai.projeto.mytraining.dto.request.UsuarioRequestDTO;
 import com.senai.projeto.mytraining.dto.response.UsuarioResponseDTO;
 import com.senai.projeto.mytraining.mapper.UsuarioMapper;
-import com.senai.projeto.mytraining.model.Desafio;
 import com.senai.projeto.mytraining.model.Role;
 import com.senai.projeto.mytraining.model.Usuario;
-import com.senai.projeto.mytraining.repository.DesafioRepository;
 import com.senai.projeto.mytraining.repository.RoleRepository;
 import com.senai.projeto.mytraining.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,12 +25,12 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final RoleRepository roleRepository;
-    private final DesafioRepository desafioRepository;
     private final UsuarioMapper usuarioMapper;
+    private final PasswordEncoder passwordEncoder;
 
     public UsuarioResponseDTO criar(UsuarioRequestDTO dto) {
         Usuario usuario = usuarioMapper.toEntity(dto);
-        usuario.setSenha(dto.senha());
+        usuario.setSenha(passwordEncoder.encode(dto.senha()));
 
         if (dto.rolesIds() != null && !dto.rolesIds().isEmpty()) {
             Set<Role> roles = new HashSet<>(roleRepository.findAllById(dto.rolesIds()));
@@ -72,6 +71,7 @@ public class UsuarioService {
         usuarioMapper.updateEntityFromDTO(dto, usuario);
 
         if (dto.senha() != null && !dto.senha().isBlank()) {
+            usuario.setSenha(passwordEncoder.encode(dto.senha()));
         }
 
         if (dto.rolesIds() != null && !dto.rolesIds().isEmpty()) {
@@ -91,35 +91,4 @@ public class UsuarioService {
         return true;
     }
 
-    public Optional<UsuarioResponseDTO> adicionarDesafio(Long usuarioId, Long desafioId) {
-        Optional<Usuario> usuarioOptional = usuarioRepository.findById(usuarioId);
-        Optional<Desafio> desafioOptional = desafioRepository.findById(desafioId);
-
-        if (usuarioOptional.isEmpty() || desafioOptional.isEmpty()) {
-            return Optional.empty();
-        }
-
-        Usuario usuario = usuarioOptional.get();
-        Desafio desafio = desafioOptional.get();
-
-        usuario.getDesafios().add(desafio);
-        Usuario usuarioAtualizado = usuarioRepository.save(usuario);
-        return Optional.of(usuarioMapper.toResponseDTO(usuarioAtualizado));
-    }
-
-    public Optional<UsuarioResponseDTO> removerDesafio(Long usuarioId, Long desafioId) {
-        Optional<Usuario> usuarioOptional = usuarioRepository.findById(usuarioId);
-        Optional<Desafio> desafioOptional = desafioRepository.findById(desafioId);
-
-        if (usuarioOptional.isEmpty() || desafioOptional.isEmpty()) {
-            return Optional.empty();
-        }
-
-        Usuario usuario = usuarioOptional.get();
-        Desafio desafio = desafioOptional.get();
-
-        usuario.getDesafios().remove(desafio);
-        Usuario usuarioAtualizado = usuarioRepository.save(usuario);
-        return Optional.of(usuarioMapper.toResponseDTO(usuarioAtualizado));
-    }
 }

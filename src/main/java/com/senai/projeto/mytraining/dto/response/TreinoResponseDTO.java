@@ -14,6 +14,6 @@ public record TreinoResponseDTO(
         Double distanciaKm,
         Long usuarioId,
         String usuarioNome,
-        Set<ExercicioResponseDTO> exercicios
+        Set<ExercicioResponseDto> exercicios
 ) {
 }
