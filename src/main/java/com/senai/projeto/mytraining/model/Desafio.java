@@ -42,6 +42,10 @@ public class Desafio {
     @Column(nullable = false)
     private Status status;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
     public enum Unidade {
         KM, MINUTOS, CALORIAS, REPETICOES, SERIES
     }
