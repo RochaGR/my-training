@@ -26,6 +26,7 @@ CREATE TABLE desafio (
     data_inicio DATE,
     data_fim DATE,
     objetivo_valor DOUBLE PRECISION,
+    progresso_atual DOUBLE PRECISION DEFAULT 0,
     unidade VARCHAR(50) NOT NULL,
     status VARCHAR(50) NOT NULL
 );
