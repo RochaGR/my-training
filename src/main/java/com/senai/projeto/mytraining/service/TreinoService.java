@@ -129,4 +129,5 @@ public class TreinoService {
         treinoRepository.deleteById(id);
         return true;
     }
+
 }

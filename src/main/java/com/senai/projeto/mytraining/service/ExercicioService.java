@@ -82,4 +82,5 @@ public class ExercicioService {
         exercicioRepository.deleteById(id);
         return true;
     }
+
 }

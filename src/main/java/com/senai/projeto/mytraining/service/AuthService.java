@@ -28,6 +28,7 @@ import java.util.Set;
 @Transactional
 public class AuthService {
 
+
     private final UsuarioRepository usuarioRepository;
     private final RoleRepository roleRepository;
     private final UsuarioMapper usuarioMapper;
