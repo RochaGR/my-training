@@ -106,6 +106,7 @@ INSERT INTO desafio (titulo, descricao, data_inicio, data_fim, objetivo_valor, p
 SELECT 'Desafio 50km Ciclismo', 'Pedalar 50km em uma semana', '2024-01-15', '2024-01-21', 50.0, 50.0, 'KM', 'CONCLUIDO', u.id
 FROM usuario u WHERE u.email = 'joao@test.com';
 
+
 INSERT INTO desafio (titulo, descricao, data_inicio, data_fim, objetivo_valor, progresso_atual, unidade, status, usuario_id)
 SELECT 'Musculação 3x semana', 'Treinar musculação 12 vezes no mês', '2024-01-01', '2024-01-31', 12.0, 8.0, 'REPETICOES', 'PENDENTE', u.id
 FROM usuario u WHERE u.email = 'maria@test.com';

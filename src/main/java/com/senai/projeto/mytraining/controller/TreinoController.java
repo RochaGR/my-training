@@ -86,4 +86,5 @@ public class TreinoController {
         }
         return ResponseEntity.notFound().build();
     }
+
 }

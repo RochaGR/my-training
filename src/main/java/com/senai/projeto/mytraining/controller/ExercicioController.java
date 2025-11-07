@@ -61,4 +61,5 @@ public class ExercicioController {
         }
         return ResponseEntity.notFound().build();
     }
+
 }
