@@ -50,8 +50,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     }
                 }
             } catch (Exception e) {
-                // Token inválido ou expirado - continuar sem autenticação
-                // O Spring Security vai retornar 403 se necessário
+                
             }
         }
 

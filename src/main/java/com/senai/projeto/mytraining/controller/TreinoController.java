@@ -21,6 +21,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/treinos")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class TreinoController {
 
     private final TreinoService treinoService;

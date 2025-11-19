@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/desafios")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DesafioController {
 
     private final DesafioService desafioService;
