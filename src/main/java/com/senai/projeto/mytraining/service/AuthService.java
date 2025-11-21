@@ -1,3 +1,4 @@
+
 package com.senai.projeto.mytraining.service;
 
 import com.senai.projeto.mytraining.dto.request.LoginRequestDTO;
@@ -10,6 +11,9 @@ import com.senai.projeto.mytraining.model.Usuario;
 import com.senai.projeto.mytraining.repository.RoleRepository;
 import com.senai.projeto.mytraining.repository.UsuarioRepository;
 import com.senai.projeto.mytraining.util.JwtUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,8 +30,8 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Tag(name = "AuthService", description = "Serviço de autenticação e registro de usuários")
 public class AuthService {
-
 
     private final UsuarioRepository usuarioRepository;
     private final RoleRepository roleRepository;
@@ -37,6 +41,8 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
 
+    @Operation(summary = "Autenticar usuário", description = "Valida credenciais e retorna token JWT")
+    @Schema(description = "Realiza login com email e senha, retornando um token JWT válido por 1 hora")
     public Optional<LoginResponseDTO> login(LoginRequestDTO dto) {
         try {
             authenticationManager.authenticate(
@@ -58,6 +64,8 @@ public class AuthService {
         }
     }
 
+    @Operation(summary = "Registrar novo usuário", description = "Cria uma nova conta com role USER automaticamente")
+    @Schema(description = "Cria novo usuário, criptografa a senha com BCrypt e atribui role ROLE_USER automaticamente")
     public UsuarioResponseDTO registro(UsuarioRequestDTO dto) {
         Usuario usuario = usuarioMapper.toEntity(dto);
         usuario.setSenha(passwordEncoder.encode(dto.senha()));
@@ -80,4 +88,3 @@ public class AuthService {
         return usuarioMapper.toResponseDTO(usuarioSalvo);
     }
 }
-

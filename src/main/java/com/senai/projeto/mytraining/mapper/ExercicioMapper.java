@@ -4,11 +4,15 @@ import com.senai.projeto.mytraining.dto.request.ExercicioRequestDTO;
 import com.senai.projeto.mytraining.dto.response.ExercicioResponseDto;
 import com.senai.projeto.mytraining.model.Exercicio;
 import com.senai.projeto.mytraining.model.Treino;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.stereotype.Component;
 
 @Component
+@Tag(name = "ExercicioMapper", description = "Mapeador entre DTOs e entidades de Exercício")
 public class ExercicioMapper {
 
+    @Operation(summary = "Converter ExercicioRequestDTO para Exercicio", description = "Mapeia dados de entrada e associa treino")
     public Exercicio toEntity(ExercicioRequestDTO dto, Treino treino) {
         if (dto == null) {
             return null;
@@ -25,6 +29,7 @@ public class ExercicioMapper {
         return exercicio;
     }
 
+    @Operation(summary = "Converter Exercicio para ExercicioResponseDto", description = "Mapeia entidade JPA para resposta da API")
     public ExercicioResponseDto toResponseDTO(Exercicio exercicio) {
         if (exercicio == null) {
             return null;
@@ -41,6 +46,7 @@ public class ExercicioMapper {
         );
     }
 
+    @Operation(summary = "Atualizar Exercicio a partir de DTO", description = "Atualiza campos de entidade existente")
     public void updateEntityFromDTO(ExercicioRequestDTO dto, Exercicio exercicio) {
         if (dto == null || exercicio == null) {
             return;

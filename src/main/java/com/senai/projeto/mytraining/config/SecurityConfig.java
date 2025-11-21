@@ -44,25 +44,26 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        // Rotas públicas
+
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/test/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
 
-                        // Rotas protegidas de treinos
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll()
+                        .requestMatchers("/v3/api-docs").permitAll()
+                        .requestMatchers("/webjars/**").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/api/treinos/meus-treinos").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/treinos").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/treinos/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/treinos/**").authenticated()
 
-                        // Rotas protegidas de desafios
                         .requestMatchers(HttpMethod.GET, "/api/desafios/meus-desafios").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/desafios").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/desafios/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/desafios/**").authenticated()
 
-                        // Outras rotas da API podem ser públicas ou autenticadas conforme necessário
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
