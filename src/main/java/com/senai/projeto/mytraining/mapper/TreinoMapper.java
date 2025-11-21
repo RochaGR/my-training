@@ -4,6 +4,8 @@ import com.senai.projeto.mytraining.dto.request.TreinoRequestDTO;
 import com.senai.projeto.mytraining.dto.response.TreinoResponseDTO;
 import com.senai.projeto.mytraining.model.Treino;
 import com.senai.projeto.mytraining.model.Usuario;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +13,12 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Tag(name = "TreinoMapper", description = "Mapeador entre DTOs e entidades de Treino")
 public class TreinoMapper {
 
     private final ExercicioMapper exercicioMapper;
 
+    @Operation(summary = "Converter TreinoRequestDTO para Treino", description = "Mapeia dados de entrada e associa usuário")
     public Treino toEntity(TreinoRequestDTO dto, Usuario usuario) {
         if (dto == null) {
             return null;
@@ -31,6 +35,7 @@ public class TreinoMapper {
         return treino;
     }
 
+    @Operation(summary = "Converter Treino para TreinoResponseDTO", description = "Mapeia entidade JPA para resposta da API, incluindo exercícios")
     public TreinoResponseDTO toResponseDTO(Treino treino) {
         if (treino == null) {
             return null;
@@ -52,6 +57,7 @@ public class TreinoMapper {
         );
     }
 
+    @Operation(summary = "Atualizar Treino a partir de DTO", description = "Atualiza campos de entidade existente")
     public void updateEntityFromDTO(TreinoRequestDTO dto, Treino treino) {
         if (dto == null || treino == null) {
             return;

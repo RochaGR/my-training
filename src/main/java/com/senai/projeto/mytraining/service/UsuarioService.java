@@ -7,6 +7,8 @@ import com.senai.projeto.mytraining.model.Role;
 import com.senai.projeto.mytraining.model.Usuario;
 import com.senai.projeto.mytraining.repository.RoleRepository;
 import com.senai.projeto.mytraining.repository.UsuarioRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Tag(name = "UsuarioService", description = "Serviço de gerenciamento de usuários")
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
@@ -28,6 +31,7 @@ public class UsuarioService {
     private final UsuarioMapper usuarioMapper;
     private final PasswordEncoder passwordEncoder;
 
+    @Operation(summary = "Criar novo usuário", description = "Cria um novo usuário com roles opcionais")
     public UsuarioResponseDTO criar(UsuarioRequestDTO dto) {
         Usuario usuario = usuarioMapper.toEntity(dto);
         usuario.setSenha(passwordEncoder.encode(dto.senha()));
@@ -41,18 +45,21 @@ public class UsuarioService {
         return usuarioMapper.toResponseDTO(usuarioSalvo);
     }
 
+    @Operation(summary = "Buscar usuário por ID", description = "Retorna um usuário específico pelo ID")
     @Transactional(readOnly = true)
     public Optional<UsuarioResponseDTO> buscarPorId(Long id) {
         return usuarioRepository.findById(id)
                 .map(usuarioMapper::toResponseDTO);
     }
 
+    @Operation(summary = "Buscar usuário por email", description = "Retorna um usuário específico pelo email")
     @Transactional(readOnly = true)
     public Optional<UsuarioResponseDTO> buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email)
                 .map(usuarioMapper::toResponseDTO);
     }
 
+    @Operation(summary = "Listar todos os usuários", description = "Retorna lista com todos os usuários cadastrados")
     @Transactional(readOnly = true)
     public List<UsuarioResponseDTO> listarTodos() {
         return usuarioRepository.findAll().stream()
@@ -60,6 +67,7 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
+    @Operation(summary = "Atualizar usuário", description = "Atualiza dados de um usuário existente")
     public Optional<UsuarioResponseDTO> atualizar(Long id, UsuarioRequestDTO dto) {
         Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
 
@@ -83,6 +91,7 @@ public class UsuarioService {
         return Optional.of(usuarioMapper.toResponseDTO(usuarioAtualizado));
     }
 
+    @Operation(summary = "Deletar usuário", description = "Remove um usuário do sistema")
     public boolean deletar(Long id) {
         if (!usuarioRepository.existsById(id)) {
             return false;
@@ -90,6 +99,4 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
         return true;
     }
-
-
 }
