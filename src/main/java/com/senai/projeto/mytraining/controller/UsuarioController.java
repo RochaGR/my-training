@@ -2,6 +2,7 @@ package com.senai.projeto.mytraining.controller;
 
 import com.senai.projeto.mytraining.dto.request.UsuarioRequestDTO;
 import com.senai.projeto.mytraining.dto.response.UsuarioResponseDTO;
+import com.senai.projeto.mytraining.hateoas.UsuarioModelAssembler;
 import com.senai.projeto.mytraining.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -13,46 +14,47 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/usuarios")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Tag(name = "Usuários", description = "Gerenciamento de usuários do sistema")
+@Tag(name = "UsuáriosTentar novamenteHBContinuar", description = "Gerenciamento de usuários do sistema com HATEOAS")
 public class UsuarioController {
-
     private final UsuarioService usuarioService;
+    private final UsuarioModelAssembler assembler;
 
     @PostMapping
     @Operation(summary = "Criar novo usuário", description = "Cria uma nova conta de usuário no sistema")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso",
-                    content = @Content(schema = @Schema(implementation = UsuarioResponseDTO.class))),
+            @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
-    public ResponseEntity<UsuarioResponseDTO> criar(@Valid @RequestBody UsuarioRequestDTO dto) {
+    public ResponseEntity<EntityModel<UsuarioResponseDTO>> criar(@Valid @RequestBody UsuarioRequestDTO dto) {
         UsuarioResponseDTO usuario = usuarioService.criar(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+        EntityModel<UsuarioResponseDTO> model = assembler.toModel(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(model);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Buscar usuário por ID", description = "Retorna um usuário específico pelo seu ID")
     @SecurityRequirement(name = "bearerAuth")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuário encontrado",
-                    content = @Content(schema = @Schema(implementation = UsuarioResponseDTO.class))),
+            @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<UsuarioResponseDTO> buscarPorId(
+    public ResponseEntity<EntityModel<UsuarioResponseDTO>> buscarPorId(
             @Parameter(description = "ID do usuário") @PathVariable Long id) {
         return usuarioService.buscarPorId(id)
-                .map(ResponseEntity::ok)
+                .map(usuario -> ResponseEntity.ok(assembler.toModel(usuario)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -64,10 +66,10 @@ public class UsuarioController {
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<UsuarioResponseDTO> buscarPorEmail(
+    public ResponseEntity<EntityModel<UsuarioResponseDTO>> buscarPorEmail(
             @Parameter(description = "Email do usuário") @PathVariable String email) {
         return usuarioService.buscarPorEmail(email)
-                .map(ResponseEntity::ok)
+                .map(usuario -> ResponseEntity.ok(assembler.toModel(usuario)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -75,9 +77,12 @@ public class UsuarioController {
     @Operation(summary = "Listar todos os usuários", description = "Retorna todos os usuários cadastrados no sistema")
     @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200", description = "Lista de usuários retornada")
-    public ResponseEntity<List<UsuarioResponseDTO>> listarTodos() {
+    public ResponseEntity<List<EntityModel<UsuarioResponseDTO>>> listarTodos() {
         List<UsuarioResponseDTO> usuarios = usuarioService.listarTodos();
-        return ResponseEntity.ok(usuarios);
+        List<EntityModel<UsuarioResponseDTO>> models = usuarios.stream()
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(models);
     }
 
     @PutMapping("/{id}")
@@ -89,11 +94,11 @@ public class UsuarioController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos"),
             @ApiResponse(responseCode = "401", description = "Não autenticado")
     })
-    public ResponseEntity<UsuarioResponseDTO> atualizar(
+    public ResponseEntity<EntityModel<UsuarioResponseDTO>> atualizar(
             @Parameter(description = "ID do usuário") @PathVariable Long id,
             @Valid @RequestBody UsuarioRequestDTO dto) {
         return usuarioService.atualizar(id, dto)
-                .map(ResponseEntity::ok)
+                .map(usuario -> ResponseEntity.ok(assembler.toModel(usuario)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
